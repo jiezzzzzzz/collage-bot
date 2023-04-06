@@ -1,19 +1,23 @@
 from django.core.management.base import BaseCommand
 from admin_panel.settings import TOKEN
-from telegram.ext import CallbackContext, Updater, Filters, MessageHandler
+from telegram.ext import CallbackContext, Updater, Filters, MessageHandler, CommandHandler
 from telegram import Bot, Update
 from telegram.utils.request import Request
+from admin_app.models import Theme
+from django.db.models.aggregates import Count
+from random import randint
+from django.db.models.aggregates import Aggregate
 
 
-def do_echo(update: Update, context: CallbackContext):
+def send_text(update: Update, context: CallbackContext):
     chat_id = update.message.chat_id
-
-    text = update.message.text
-
-    reply_text = f'Yours id {chat_id}\n{text}'
-
+    count = Theme.objects.all().count()
+    count2 = Theme.objects.all()
+    random_index = randint(0, count - 1)
+    text = count2[random_index]
+    print(text)
     update.message.reply_text(
-        text=reply_text
+        text=count2[random_index]
     )
 
 
@@ -37,8 +41,8 @@ class Command(BaseCommand):
             use_context=True
         )
 
-        message_handler = MessageHandler(Filters.text, do_echo)
-        updater.dispatcher.add_handler(message_handler)
+        message_handler2 = CommandHandler('send', send_text)
+        updater.dispatcher.add_handler(message_handler2)
 
         updater.start_polling()
 
