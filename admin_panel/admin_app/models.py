@@ -1,9 +1,10 @@
 from django.db import models
+from tinymce.models import HTMLField
 
 
 class Theme(models.Model):
     theme_name = models.CharField(max_length=200)
-    text = models.TextField(
+    text = HTMLField(
         verbose_name='explanatory text'
     )
     created_at = models.DateTimeField(
