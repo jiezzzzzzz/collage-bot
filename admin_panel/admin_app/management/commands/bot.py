@@ -1,12 +1,10 @@
 from django.core.management.base import BaseCommand
 from admin_panel.settings import TOKEN
-from telegram.ext import CallbackContext, Updater, Filters, MessageHandler, CommandHandler
+from telegram.ext import CallbackContext, Updater, CommandHandler
 from telegram import Bot, Update
 from telegram.utils.request import Request
 from admin_app.models import Theme
-from django.db.models.aggregates import Count
 from random import randint
-from django.db.models.aggregates import Aggregate
 
 
 def send_text(update: Update, context: CallbackContext):
