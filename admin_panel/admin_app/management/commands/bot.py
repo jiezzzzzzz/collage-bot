@@ -14,10 +14,9 @@ def send_text(update: Update, context: CallbackContext):
     count = Theme.objects.all().count()
     count2 = Theme.objects.all()
     random_index = randint(0, count - 1)
-    text = count2[random_index]
-    print(text)
+    text = str(count2[random_index].text)
     update.message.reply_text(
-        text=count2[random_index]
+        text=text
     )
 
 
